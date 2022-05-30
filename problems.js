@@ -73,3 +73,112 @@ var majorityElement = function(nums) {
     return key
     
 };
+
+// 692. Top K Frequent Words
+// hash them in the map
+// sort the keys 
+// return whatever the most
+
+var topKFrequent = function(words, k) {
+    let map = {};
+    for(let i =0; i<words.length; i++){
+        if(words[i] in map){
+            map[words[i]]++
+        }else {
+            map[words[i]] = 1
+        }
+    }
+    let key = Object.keys(map).sort();
+    key = key.sort((a,b) => map[b] - map[a])
+    return key.slice(0,k)
+};
+
+
+// 1603. Design Parking System
+
+
+var ParkingSystem = function(big, medium, small) {
+    this.carLot = [big, medium, small];
+};
+
+/** 
+ * @param {number} carType
+ * @return {boolean}
+ */
+ParkingSystem.prototype.addCar = function(carType) {
+    if(carType === 1){
+        if(this.carLot[0] > 0){
+            this.carLot[0]--;
+            return true;
+        } 
+    }
+    if(carType === 2){
+        if(this.carLot[1] > 0){
+            this.carLot[1]--;
+            return true; 
+        }
+    }
+    if(carType === 3){
+        if(this.carLot[2] > 0){
+           this.carLot[2]--;
+            return true; 
+        } 
+    }
+    return false
+};
+
+
+
+// 965. Univalued Binary Tree
+
+
+var treeTraverse = function(root,val){
+    if(root === null){
+        return true;
+    }
+    let left = treeTraverse(root.left, val);
+    let right = treeTraverse(root.right, val);
+    return root.val === val && left && right
+}
+
+var isUnivalTree = function(root) {
+    let val = root.val;
+    return treeTraverse(root, val)
+    l
+};
+
+
+
+
+
+// 295. Find Median from Data Stream
+
+var MedianFinder = function() {
+    this.arr = [];
+};
+
+/** 
+ * @param {number} num
+ * @return {void}
+ */
+MedianFinder.prototype.addNum = function(num) {
+    let result = this.arr;
+    for(let n = 0; n < result.length; n++){
+        if(result[n] > num){
+            return result.splice(n, 0, num);
+        }
+    }
+    result.push(num)
+};
+
+/**
+ * @return {number}
+ */
+
+// [2,3,4,5]
+
+MedianFinder.prototype.findMedian = function() {
+    let len = this.arr.length;
+    if(len%2 != 0) return this.arr[Math.floor(len/2)]
+    return (this.arr[len/2] + this.arr[(len/2)-1])/2
+};
