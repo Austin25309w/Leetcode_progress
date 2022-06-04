@@ -182,3 +182,22 @@ MedianFinder.prototype.findMedian = function() {
     if(len%2 != 0) return this.arr[Math.floor(len/2)]
     return (this.arr[len/2] + this.arr[(len/2)-1])/2
 };
+
+
+// 2022. Convert 1D Array Into 2D Array
+
+var construct2DArray = function(original, m, n) {
+    if(original.length !== m * n){
+        return [];
+    }
+    let matrix = [];
+    for(let i =0; i<m; i++){
+        let row = original.slice(i*n, (i+1)*n);
+        matrix.push(row)
+    }
+    return matrix
+};
+
+https://leetcode.com/contest/weekly-contest-294/problems/percentage-of-letter-in-string/
+
+https://leetcode.com/problems/minimum-lines-to-represent-a-line-chart/
