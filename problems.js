@@ -201,3 +201,79 @@ var construct2DArray = function(original, m, n) {
 https://leetcode.com/contest/weekly-contest-294/problems/percentage-of-letter-in-string/
 
 https://leetcode.com/problems/minimum-lines-to-represent-a-line-chart/
+
+// 138. Copy List with Random Pointer
+
+var copyRandomList = function(head) {
+    const map = new Map();
+    map.set(null, null);
+    let curr = head;
+    
+    while(curr){
+        const node = new Node(curr.val);
+        map.set(curr,node);
+        curr = curr.next;
+    }
+    
+    curr = head;
+    while(curr){
+        const node = map.get(curr);
+        node.next = map.get(curr.next);
+        node.random = map.get(curr.random);
+        curr= curr.next;
+    }
+    return map.get(head)
+};
+
+// 2287. Rearrange Characters to Make Target String
+
+var rearrangeCharacters = function(s, target) {
+    let targetFreq = {};
+    let sFreq = {};
+    
+    for(let i=0; i<s.length; i++){
+        let char = s[i]
+        if(char in sFreq){
+            sFreq[char]++;
+        } else {
+            sFreq[char] =1;
+        }
+    }
+    
+    for(let j =0; j<target.length; j++){
+        let char = target[j];
+        if(char in targetFreq){
+            targetFreq[char]++
+        } else {
+            targetFreq[char] =1
+        }
+    }
+    
+    let result = Infinity;
+    
+    for(let targetChar in targetFreq){
+        if(targetChar in sFreq){
+            let sOccurrences = sFreq[targetChar];
+            let targetOccurrences = targetFreq[targetChar];
+            result = Math.min(result, Math.floor(sOccurrences / targetOccurrences))
+        } else {
+            return 0;
+        }
+    }
+    return result;
+};
+
+// 70. Climbing Stairs
+
+var climbStairs = function(n, memo = new Array()) {
+    // base case;
+    if(n === 1) return 1;
+    if(n === 2) return 2;
+    if(memo[n]) return memo[n]
+    // recursion
+    let res = climbStairs(n-1, memo) + climbStairs(n-2, memo);
+    memo[n] = res;
+    return res;
+    
+    
+};
