@@ -264,6 +264,7 @@ var rearrangeCharacters = function(s, target) {
 };
 
 // 70. Climbing Stairs
+// recursion & memoization
 
 var climbStairs = function(n, memo = new Array()) {
     // base case;
@@ -276,4 +277,61 @@ var climbStairs = function(n, memo = new Array()) {
     return res;
     
     
+};
+
+// 94. Binary Tree Inorder Traversal
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var inorderTraversal = function(root) {
+    let ans = [];
+    
+    function dfs(root){
+        if(!root){
+            return
+        }
+        dfs(root.left);
+        ans.push(root.val)
+        dfs(root.right);
+    }
+    dfs(root);
+    return ans
+};
+
+// 145. Binary Tree Postorder Traversal
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var postorderTraversal = function(root) {
+    let ans = [];
+    function dfs(root){
+        if(root == null){
+            return
+        }
+        dfs(root.left);
+        dfs(root.right);
+        ans.push(root.val)
+    }
+    dfs(root);
+    return ans;
 };
