@@ -335,3 +335,32 @@ var climbStairs = function(n, memo = new Array()) {
     dfs(root);
     return ans;
 };
+
+// 199. Binary Tree Right Side View
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+// return node, node right, node.right.right
+// breadth first search. BFS
+//
+var rightSideView = function(root) {
+    let ans = [];
+    function dfs(node, level){
+        if(!node) return
+        ans[level] = node.val;
+        dfs(node.left, level+1);
+        dfs(node.right, level+1)
+    }
+    dfs(root,0);
+    return ans
+};
+console.log(rightSideView([1,2,3,null,5,null,4]))
