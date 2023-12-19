@@ -364,3 +364,27 @@ var rightSideView = function(root) {
     return ans
 };
 console.log(rightSideView([1,2,3,null,5,null,4]))
+
+
+
+var lowestCommonAncestor = function(root, p, q) {
+    function helper(node){
+        if(!node){
+            return null;
+        }
+        if(node == p || node == q){
+            return node
+        }
+        let left = helper(node.left);
+        let right = helper(node.right)
+
+        if(left && right){
+            return node
+        }
+        if(left){
+            return left
+        }
+        return right
+    }
+    return helper(root)
+};
