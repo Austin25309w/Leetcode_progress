@@ -366,6 +366,7 @@ var rightSideView = function(root) {
 console.log(rightSideView([1,2,3,null,5,null,4]))
 
 
+// lowest common ancestor
 
 var lowestCommonAncestor = function(root, p, q) {
     function helper(node){
@@ -388,3 +389,32 @@ var lowestCommonAncestor = function(root, p, q) {
     }
     return helper(root)
 };
+
+// word break
+
+// Define a function 'wordBreak' that takes a string 's' and an array 'wordDict' as parameters.
+var wordBreak = function(s, wordDict) {
+
+    // Initialize a dynamic programming array 'dp' with length (s.length + 1), filling it with 'false'.
+    let dp = new Array(s.length + 1).fill(false);
+
+    // Create a Set 'wordDictSet' from the 'wordDict' array for efficient word lookup.
+    let wordDictSet = new Set(wordDict);
+
+    // Set the base case: an empty string can be broken into words from the wordDict.
+    dp[0] = true;
+
+    // Iterate through the string 's' from index 1 to its length.
+    for (let i = 1; i <= s.length; i++) {
+        // Nested loop to iterate through prefixes of 's' (substring up to index 'i').
+        for (let j = 0; j < i; j++) {
+            
+            // Check if the substring from index 'j' to 'i' is in the wordDictSet
+            // and if dp[j] is true, indicating that the prefix is breakable.
+            if (dp[j] && wordDictSet.has(s.substring(j, i))) {
+                // If the conditions are met, set dp[i] to true and break out of the loop.
+                dp[i] = true;
+                break;
+            }
+        }
+    }
