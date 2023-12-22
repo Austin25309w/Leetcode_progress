@@ -468,3 +468,29 @@ var uniquePaths = function(m, n) {
     // Return the result stored in the top-left corner
     return dp[0][0];
 };
+
+
+// Longest palindrome substring:
+
+var longestPalindrome = function(s) {
+    let longString = '';
+    let subString = '';
+    for(let i =0; i<s.length; i++){
+        for(let j = s.length; j > i; j--){
+            subString = s.slice(i, j);
+            if(isPalindrome(subString) && longString.length < subString.length){
+                longString = subString
+            }
+        }
+    }
+    return longString
+};
+
+function isPalindrome(subString){
+    for(let i=0; i< subString.length/2; i++){
+        if(subString[i] != subString[subString.length-(1+i)]){
+            return false;
+        }
+    }
+    return true;
+}
