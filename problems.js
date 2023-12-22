@@ -473,24 +473,42 @@ var uniquePaths = function(m, n) {
 // Longest palindrome substring:
 
 var longestPalindrome = function(s) {
+    // Initialize an empty string to store the longest palindrome found
     let longString = '';
+    // Initialize an empty string to store the current substring being checked
     let subString = '';
-    for(let i =0; i<s.length; i++){
-        for(let j = s.length; j > i; j--){
+
+    // Outer loop: Iterate through each character of the input string
+    for (let i = 0; i < s.length; i++) {
+        // Inner loop: Iterate through each character from the end towards the current position i
+        for (let j = s.length; j > i; j--) {
+            // Extract a substring from index i to j (excluding j) from the input string s
             subString = s.slice(i, j);
-            if(isPalindrome(subString) && longString.length < subString.length){
-                longString = subString
+
+            // Check if the current subString is a palindrome
+            // and if its length is greater than the length of the current longString
+            if (isPalindrome(subString) && longString.length < subString.length) {
+                // If conditions are met, update longString with the current subString
+                longString = subString;
             }
         }
     }
-    return longString
+
+    // Return the longest palindrome found
+    return longString;
 };
 
-function isPalindrome(subString){
-    for(let i=0; i< subString.length/2; i++){
-        if(subString[i] != subString[subString.length-(1+i)]){
+// Function to check if a given subString is a palindrome
+function isPalindrome(subString) {
+    // Iterate through each character of the substring, comparing characters from the beginning with their corresponding characters from the end
+    for (let i = 0; i < subString.length / 2; i++) {
+        // Check if the characters at the current positions from the beginning and end do not match
+        if (subString[i] !== subString[subString.length - (1 + i)]) {
+            // If a non-matching pair is found, immediately return false
             return false;
         }
     }
+
+    // If the loop completes without finding any non-matching pairs, the substring is a palindrome, and return true
     return true;
 }
