@@ -512,3 +512,19 @@ function isPalindrome(subString) {
     // If the loop completes without finding any non-matching pairs, the substring is a palindrome, and return true
     return true;
 }
+
+// Binary right side view:
+
+var rightSideView = function(root) {
+    if(!root) return[];
+    let res = [];
+    pre(root, 0);
+    return res;
+
+    function pre(node, h){
+        if(!node) return;
+        res[h] = node.val;
+        pre(node.left, h+1)
+        pre(node.right, h+1);
+    }
+};
