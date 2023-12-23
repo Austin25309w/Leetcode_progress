@@ -528,3 +528,28 @@ var rightSideView = function(root) {
         pre(node.right, h+1);
     }
 };
+
+// Container with most water:
+
+var maxArea = function(height) {
+    let p1 = 0;                           // Initialize the first pointer (p1) to the beginning of the array.
+    let p2 = height.length - 1;           // Initialize the second pointer (p2) to the end of the array.
+    let maxWater = 0;                    // Initialize the maximum water container area to 0.
+
+    while (p1 < p2) {                    // While p1 is less than p2 (there are more bars to consider):
+        const h1 = height[p1];           // Get the height of the bar at position p1.
+        const h2 = height[p2];           // Get the height of the bar at position p2.
+        const width = p2 - p1;           // Calculate the width between the two pointers.
+        const minH = Math.min(h1, h2);   // Calculate the minimum height between the two bars.
+
+        maxWater = Math.max(maxWater, minH * width);  // Calculate the area and update maxWater if it's larger.
+
+        if (h1 < h2) {
+            p1++;                       // If the bar at p1 is shorter, move p1 to the right.
+        } else {
+            p2--;                       // If the bar at p2 is shorter (or equal), move p2 to the left.
+        }
+    }
+
+    return maxWater;                    // Return the maximum water container area found.
+};
