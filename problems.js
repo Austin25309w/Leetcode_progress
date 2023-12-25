@@ -553,3 +553,46 @@ var maxArea = function(height) {
 
     return maxWater;                    // Return the maximum water container area found.
 };
+
+
+// Letter combination of a phone number
+
+var letterCombinations = function(digits) {
+    if (!digits.length) {
+        return [];
+    }
+    
+    // Create a mapping of digits to corresponding letters on a phone keypad.
+    const digitToLetters = {
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz'
+    };
+    
+    const res = [];  // Initialize an array to store the result combinations.
+    
+    // Define a recursive backtrack function that generates combinations.
+    function backtrack(idx, comb) {
+        // If we have processed all digits, add the combination to the result.
+        if (idx === digits.length) {
+            res.push(comb);
+            return;
+        }
+        
+        // For the current digit, iterate through its corresponding letters.
+        for (const letter of digitToLetters[digits[idx]]) {
+            // Recursively call backtrack with the next digit and updated combination.
+            backtrack(idx + 1, comb + letter);
+        }
+    }
+    
+    // Start the backtrack process with index 0 and an empty initial combination.
+    backtrack(0, "");
+    
+    return res;  // Return the generated letter combinations.
+};
