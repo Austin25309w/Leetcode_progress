@@ -596,3 +596,57 @@ var letterCombinations = function(digits) {
     
     return res;  // Return the generated letter combinations.
 };
+
+// find all anagrams in a string
+
+var findAnagrams = function(s, p) {
+    // Create an array to store the starting indices of anagrams.
+    const res = [];
+    
+    // Create an object to keep track of characters needed to form an anagram.
+    const neededChars = {};
+
+    // Populate neededChars with the characters and their counts from pattern 'p'.
+    for (let char of p) {
+        if (char in neededChars) {
+            neededChars[char]++;
+        } else {
+            neededChars[char] = 1;
+        }
+    }
+
+    // Initialize pointers and counters.
+    let left = 0;               // Left pointer of the sliding window.
+    let right = 0;              // Right pointer of the sliding window.
+    let count = p.length;       // Counter for the characters needed to form an anagram of 'p'.
+
+    // Start sliding the window through the string 's'.
+    while (right < s.length) {
+        // Check if the character at 's[right]' is needed for an anagram.
+        if (neededChars[s[right]] > 0) {
+            count--;            // Decrement the count of needed characters.
+        }
+
+        neededChars[s[right]]--; // Decrement the count of the character in 'neededChars'.
+        right++;                // Expand the window to the right.
+
+        // Check if all characters needed for an anagram are found.
+        if (count === 0) {
+            res.push(left);     // Add the left pointer index to 'res'.
+        }
+
+        // Check if the size of the window is equal to the length of 'p'.
+        if (right - left === p.length) {
+            // Check if the character at 's[left]' can be part of an anagram.
+            if (neededChars[s[left]] >= 0) {
+                count++;        // Increment the count of needed characters.
+            }
+
+            neededChars[s[left]]++; // Increment the count of the character in 'neededChars'.
+            left++;                 // Shrink the window from the left.
+        }
+    }
+
+    // Return the array 'res' containing the starting indices of anagrams of 'p' in 's'.
+    return res;
+};
