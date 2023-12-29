@@ -654,28 +654,28 @@ var findAnagrams = function(s, p) {
 // trapping rain water
 
 var trap = function(height) {
-    let result = 0;
-    let start = 0;
-    let end = height.length-1
-    let startMax = 0;
-    let endMax =0;
+    let result = 0;            // Initialize the result variable to store the trapped water.
+    let start = 0;             // Initialize a start pointer at the beginning of the array.
+    let end = height.length - 1; // Initialize an end pointer at the end of the array.
+    let startMax = 0;          // Initialize a variable to track the maximum height on the left.
+    let endMax = 0;            // Initialize a variable to track the maximum height on the right.
 
-    while(start < end){
-        if(height[start] < height[end]){
-            if(height[start] >= startMax){
-                startMax = height[start]
+    while (start < end) {      // Iterate until the start pointer is less than the end pointer.
+        if (height[start] < height[end]) {  // If the height at start is less than the height at end:
+            if (height[start] >= startMax) { // Check if the current height is greater than or equal to the startMax.
+                startMax = height[start];   // Update the startMax to the current height.
             } else {
-                result += startMax - height[start];
+                result += startMax - height[start]; // Add the trapped water between startMax and current height to the result.
             }
-            start++;
-        } else {
-            if(height[end] >= endMax){
-                endMax = height[end]
+            start++; // Move the start pointer to the right.
+        } else { // If the height at end is greater than or equal to the height at start:
+            if (height[end] >= endMax) { // Check if the current height is greater than or equal to the endMax.
+                endMax = height[end];   // Update the endMax to the current height.
             } else {
-                result += endMax - height[end]
+                result += endMax - height[end]; // Add the trapped water between endMax and current height to the result.
             }
-            end--;
+            end--; // Move the end pointer to the left.
         }
     }
-    return result;
+    return result; // Return the total trapped water.
 };
