@@ -733,40 +733,38 @@ var maxSubArray = function(nums) {
 // calculator
 
 var calculate = function(s) {
-    let sign = 1, sum = 0;
-    
-    const stack = []; 
-    for (let i = 0; i < s.length; i += 1) {
-        if (s[i] >= '0' && s[i] <= '9') {
-            let num = 0
-			// num can be multiple digits, iterate to build full num.
+    let sign = 1; // Initialize the sign to positive
+    let sum = 0;  // Initialize the sum to 0
+    const stack = []; // Create a stack to handle parentheses and signs
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] >= '0' && s[i] <= '9') { // If a digit is encountered
+            let num = 0; // Initialize a variable to store the number
             while (s[i] >= '0' && s[i] <= '9') {
-                num = (num * 10) + (s[i] - '0');
-                i += 1;
+                // Parse the entire number by iterating through digits
+                num = num * 10 + (s[i] - '0');
+                i++;
             }
-			// add your completed sum.
-            sum += (num * sign);
-			// while loop from earlier causes our index to move forward once, bring it back
-            i -= 1;
-        } else if (s[i] === '+') {
-            sign = 1;
-        } else if (s[i] === '-') {
-            sign = -1;
-        } else if (s[i] === '(') {
-			// open parens signifies that we should calculate the inside of the parens first and store the outer sum and sign in stack. 
-			// we can later retrieve the values in our stack once we find a closing bracket.
+            // Add the number to the sum with the appropriate sign
+            sum += num * sign;
+            i--; // Decrement i because it was incremented one extra time in the loop
+        } else if (s[i] === '+') { // If a plus sign is encountered
+            sign = 1; // Set the sign to positive
+        } else if (s[i] === '-') { // If a minus sign is encountered
+            sign = -1; // Set the sign to negative
+        } else if (s[i] === '(') { // If an opening parenthesis is encountered
+            // Push the current sum and sign onto the stack
             stack.push(sum);
             stack.push(sign);
-            sum = 0
-			// we used our sign, reset it to default.
+            // Reset sum and sign for the calculations inside the parentheses
+            sum = 0;
             sign = 1;
-        } else if (s[i] === ')') {
-			// closing bracket assumes we've calculated the sum inside the parens. 
-			// Earlier, we pushed the sum first into our stack. First pop will be the sign. Second pop will be the outer sum.
-            sum = stack.pop() * sum;
-            sum += stack.pop();
+        } else if (s[i] === ')') { // If a closing parenthesis is encountered
+            // Pop the sign and the previous sum from the stack
+            // Multiply the sum by the sign and add it to the current sum
+            sum = stack.pop() * sum + stack.pop();
         }
     }
-    
-    return sum;
+
+    return sum; // The final sum represents the result of the expression
 };
