@@ -805,3 +805,26 @@ var rob = function(nums, idx = 0, memo = {}) {
 
     return memo[idx] = Math.max(sumIfSkipped, sumIfRobbed)
 };
+
+//House robber II
+//Recursion
+var rob = function(nums, idx = 0 ,memo = {}) {
+    if(nums.length === 1) return nums[0]
+
+    const includeFirst = robHouse(nums,0,nums.length-1, {})
+    const includeLast = robHouse(nums,1, nums.length, {})
+    return Math.max(includeFirst, includeLast);
+};
+
+const robHouse = (nums, i, endIdx, memo) => {
+    if(i in memo) return memo[i]
+    if(i >= endIdx) return 0;
+
+    const include = nums[i] + robHouse(nums, i +2, endIdx, memo)
+    const exclude = robHouse(nums, i+1, endIdx, memo)
+
+    memo[i] = Math.max(include, exclude)
+    return memo[i]
+}
+
+
