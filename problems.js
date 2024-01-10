@@ -856,3 +856,18 @@ var maxSubArray = function(nums) {
     }
     return maxSum
 };
+
+// missing numbers
+
+var missingNumber = function(nums) {
+    if(nums.length === 1 && nums[0] === 0) return 1
+    if(nums.length === 1 && nums[0] === 1) return 0
+    let sorted = nums.sort((a,b) => a-b)
+    console.log(sorted)
+    
+    for(let i =0; i<= sorted.length; i++){
+        if(i !== sorted[i]){
+            return i
+        }
+    }
+};
