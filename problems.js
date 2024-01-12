@@ -932,3 +932,49 @@ var lengthOfLIS = function(nums) {
     }
     return Math.max(...dp)
 };
+
+// coin change memorization
+
+// tabulation 
+var coinChange = function(coins, amount) {
+    // Create an array 'dp' to store minimum number of coins needed to make each amount
+    const dp = new Array(amount + 1).fill(Infinity);
+    
+    // Initialize dp[0] to 0, as it takes 0 coins to make amount 0
+    dp[0] = 0;
+
+    // Iterate through each coin denomination
+    for(let i = 0; i < coins.length; i++){
+        // Iterate through each amount from coin[i] to 'amount'
+        for(let j = coins[i]; j <= amount; j++){
+            // Update dp[j] with the minimum of its current value and (dp[j - coins[i]] + 1)
+            dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+        }
+    }
+
+    // Return the minimum number of coins needed for the given amount
+    return dp[amount] == Infinity ? -1 : dp[amount];
+};
+
+// memorization
+
+var coinChange = function(coins, amount) {
+    let result = countCoinChange(coins, amount);
+    return result === Infinity ? -1 : result
+};
+
+let countCoinChange = (coins, amount, memo={}) =>{
+    if(amount === 0) return 0;
+    if(amount < 0) return Infinity;
+    if(memo[amount] !== undefined) return memo[amount]
+
+    let min = Infinity
+
+    for(let coin of coins){
+        const restAmount = amount - coin;
+        min = Math.min(countCoinChange(coins, restAmount, memo) +1, min)
+    }
+
+    memo[amount] = min
+    return memo[amount]
+}
