@@ -978,3 +978,16 @@ let countCoinChange = (coins, amount, memo={}) =>{
     memo[amount] = min
     return memo[amount]
 }
+
+// climbing stairs
+
+var climbStairs = function(n, memo = {}) {
+    let table = Array(n +1);
+    table[0] = 0
+    table[1] = 1
+    table[2] = 2
+    for(let i = 3; i<=n; i++){
+        table[i] = table[i-1] + table[i-2]
+    }
+    return table[n]
+};  
