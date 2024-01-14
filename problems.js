@@ -991,3 +991,35 @@ var climbStairs = function(n, memo = {}) {
     }
     return table[n]
 };  
+
+// generate parenthesis
+
+var generateParenthesis = function(n) {
+    // Initialize an empty array 'res' to store valid combinations of parentheses.
+    const res = [];
+
+    // Define a recursive function 'go' to generate valid combinations.
+    const go = (l, r, s) => {
+        // If the length of the current combination 's' is equal to 2 * n, it's a valid combination.
+        if (s.length === 2 * n) {
+            res.push(s); // Add it to the result array.
+            return;
+        }
+
+        // If we haven't used up all the left parentheses 'l', we can add a left parenthesis '('.
+        if (l < n) {
+            go(l + 1, r, s + '(');
+        }
+
+        // If there are unmatched left parentheses 'l' and we can add a right parenthesis ')', do so.
+        if (r < l) {
+            go(l, r + 1, s + ')');
+        }
+    };
+
+    // Start the recursive generation process with initial counts and an empty string.
+    go(0, 0, '');
+
+    // Return the array 'res' containing all valid combinations of parentheses.
+    return res;
+};
