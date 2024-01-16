@@ -1023,3 +1023,24 @@ var generateParenthesis = function(n) {
     // Return the array 'res' containing all valid combinations of parentheses.
     return res;
 };
+
+// Kth smallest element
+var kthSmallest = function(root, k) {
+    let n = 0; // Counter to keep track of the number of nodes visited
+    let res;   // Variable to store the kth smallest element
+
+    // Inorder traversal function to visit nodes in ascending order
+    const inorder = (root) => {
+        if (!root) return; // Base case: If the node is null, return
+
+        inorder(root.left); // Recursively visit left subtree
+
+        if (n++ < k) res = root.val; // Increment the counter and check if it reaches k
+
+        inorder(root.right); // Recursively visit right subtree
+    }
+
+    inorder(root); // Start the inorder traversal from the root
+
+    return res; // Return the kth smallest element
+};
