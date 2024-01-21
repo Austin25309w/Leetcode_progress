@@ -1109,3 +1109,36 @@ var findTheWinner = function(n, k) {
     return que.shift()
 
 };
+
+// length of the longest substring 
+
+var lengthOfLongestSubstring = function (s) {
+    // Initialize a set to store unique characters
+    let set = new Set();
+    
+    // Initialize pointers and maxSize variables
+    let left = 0;
+    let maxSize = 0;
+
+    // Edge cases: empty string or single character
+    if (s.length === 0) return 0;
+    if (s.length === 1) return 1;
+
+    // Iterate through the string using a sliding window
+    for (let i = 0; i < s.length; i++) {
+        // If the character is already in the set, shrink the window from the left
+        while (set.has(s[i])) {
+            set.delete(s[left]);
+            left++;
+        }
+        
+        // Add the current character to the set
+        set.add(s[i]);
+        
+        // Update the maxSize with the length of the current substring
+        maxSize = Math.max(maxSize, i - left + 1);
+    }
+    
+    // Return the length of the longest substring without repeating characters
+    return maxSize;
+}
