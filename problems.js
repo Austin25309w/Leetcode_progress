@@ -1175,3 +1175,42 @@ var threeSum = function(nums) {
     }
     return res; // Step 7: Return the result array containing unique triplets
 };
+
+// word search 
+const exist = function(board, word) {
+    // Get the number of rows (n) and columns (m) of the board
+    const n = board.length, m = board[0].length;
+    // Check if the length of the 'word' is less than 1, in which case, return false
+    if (word.length < 1) return false;
+
+    // Define a depth-first search function
+    const dfs = (i, j, pos) => {
+        // Base cases for termination of DFS
+        if (i === n || i < 0 || j === m || j < 0 || board[i][j] !== word[pos]) return false;
+        if (pos === word.length - 1) return true;
+
+        board[i][j] = "."; // Choose this element so we don't find it again
+
+        // Check every direction and see if any of them return a match
+        const found =
+            dfs(i + 1, j, pos + 1) ||
+            dfs(i - 1, j, pos + 1) ||
+            dfs(i, j + 1, pos + 1) ||
+            dfs(i, j - 1, pos + 1);
+
+        board[i][j] = word[pos]; // Unchoose element
+        return found;
+    };
+
+    // Iterate through the board to find the starting point for the word
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            if (board[i][j] === word[0]) {
+                const match = dfs(i, j, 0);
+                if (match) return true; // If a match is found, return true
+            }
+        }
+    }
+
+    return false; // If no match is found, return false
+};
