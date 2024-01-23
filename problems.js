@@ -1142,3 +1142,36 @@ var lengthOfLongestSubstring = function (s) {
     // Return the length of the longest substring without repeating characters
     return maxSize;
 }
+
+// 35. 3sum
+
+var threeSum = function(nums) {
+    const res = [];
+    nums.sort((a, b) => a - b); // Step 1: Sort the array in ascending order
+
+    for (let i = 0; i < nums.length; i++) { // Step 2: Iterate through each element
+        if (i > 0 && nums[i] == nums[i - 1]) {
+            continue; // Step 3: Skip duplicate values to avoid duplicate triplets
+        }
+        let left = i + 1;
+        let right = nums.length - 1;
+
+        while (left < right) { // Step 4: Use two-pointer approach
+            let threeSum = nums[i] + nums[left] + nums[right];
+            if (threeSum > 0) {
+                right--;
+            } else if (threeSum < 0) {
+                left++;
+            } else {
+                res.push([nums[i], nums[left], nums[right]]); // Step 5: Found a triplet, add to result
+                left++;
+
+                // Step 6: Skip duplicate values for the left pointer
+                while (nums[left] == nums[left - 1] && left < right) {
+                    left++;
+                }
+            }
+        }
+    }
+    return res; // Step 7: Return the result array containing unique triplets
+};
