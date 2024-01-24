@@ -1214,3 +1214,54 @@ const exist = function(board, word) {
 
     return false; // If no match is found, return false
 };
+
+//36. Binary tree level order Traversal
+
+// Function to perform level-order traversal on a binary tree
+var levelOrder = function(root) {
+    // Check if the root is null (empty tree)
+    if (!root) {
+        // Return an empty array since there are no levels to traverse
+        return [];
+    }
+
+    // Initialize an array to store the final output (result)
+    const result = [];
+    
+    // Initialize a queue with the root node to start breadth-first traversal
+    const queue = [root];
+
+    // Perform breadth-first traversal
+    while (queue.length > 0) {
+        // Determine the size of the current level (number of nodes in the queue)
+        const levelSize = queue.length;
+
+        // Initialize an empty array to store node values at the current level
+        const currentLevel = [];
+
+        // Process each node in the current level
+        for (let i = 0; i < levelSize; i++) {
+            // Dequeue a node from the front of the queue
+            const currentNode = queue.shift();
+
+            // Add the node's value to the currentLevel array
+            currentLevel.push(currentNode.val);
+
+            // Enqueue the left child if it exists
+            if (currentNode.left) {
+                queue.push(currentNode.left);
+            }
+
+            // Enqueue the right child if it exists
+            if (currentNode.right) {
+                queue.push(currentNode.right);
+            }
+        }
+
+        // After processing all nodes in the current level, add currentLevel to the result array
+        result.push(currentLevel);
+    }
+
+    // Return the final result array containing lists of values at each level
+    return result;
+};
