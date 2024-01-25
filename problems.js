@@ -1265,3 +1265,19 @@ var levelOrder = function(root) {
     // Return the final result array containing lists of values at each level
     return result;
 };
+
+// find k closest element 
+
+var findClosestElements = function(arr, k, x) {
+    let left = 0;  // Initialize the left pointer for the sliding window.
+     let right = arr.length - k;  // Initialize the right pointer for the sliding window.
+     while (left < right) {  // Continue until left pointer crosses or equals the right pointer.
+         const mid = left + ((right - left) >> 1);  // Calculate the midpoint of the current window.
+         if (x - arr[mid] > arr[mid + k] - x) {  // Compare the distances of the elements at mid and mid+k from x.
+             left = mid + 1;  // If the element at mid is farther from x, move the window to the right.
+         } else {
+             right = mid;  // If the element at mid+k is farther from x, move the window to the left.
+         }
+     }
+     return arr.slice(left, left + k);  // Return the subarray with k closest elements.
+ };
