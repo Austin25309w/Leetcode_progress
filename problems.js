@@ -1325,3 +1325,41 @@ var findClosestElements = function(arr, k, x) {
     
     return result;  // Return the kth largest element.
 };
+
+// word search 
+
+var exist = function(board, word) {
+    const n = board.length, m = board[0].length;  // Get the dimensions of the board.
+    if(word.length < 1) return false;  // If the word is empty, return false.
+
+    // Define a depth-first search function.
+    const dfs = (i, j, pos) => {
+        // Check for out-of-bounds or mismatched characters.
+        if(i === n || i < 0 || j === m || j < 0 || board[i][j] !== word[pos]) return false;
+        // If the position is at the end of the word, return true.
+        if(pos === word.length-1) return true;
+        board[i][j] = '.';  // Mark the current cell as visited.
+
+        // Recursively search in all four directions.
+        const found = 
+            dfs(i+1, j, pos+1) ||  // Down
+            dfs(i-1, j, pos+1) ||  // Up
+            dfs(i, j+1, pos+1) ||  // Right
+            dfs(i, j-1, pos+1);    // Left
+        
+        board[i][j] = word[pos];  // Restore the current cell to its original value.
+        return found;  // Return whether the word was found.
+    }
+
+    // Iterate through each cell in the board.
+    for(let i = 0; i < n; i++) {
+        for(let j = 0; j < m; j++) {
+            // If the current cell matches the first character of the word, start DFS.
+            if(board[i][j] === word[0]) {
+                const match = dfs(i, j, 0);  // Check if the word is found starting from this cell.
+                if(match) return true;  // If found, return true.
+            }
+        }
+    }
+    return false;  // If not found, return false.
+};
