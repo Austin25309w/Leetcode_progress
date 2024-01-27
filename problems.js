@@ -1281,3 +1281,47 @@ var findClosestElements = function(arr, k, x) {
      }
      return arr.slice(left, left + k);  // Return the subarray with k closest elements.
  };
+
+
+ // find Kth largest element
+ var findKthLargest = function(nums, k) {
+    const mid = Math.floor(nums.length/2);  // Calculate the midpoint of the array.
+    
+    // Move from the middle to the start to bubble down smaller numbers
+    // and create a max heap.
+    for(let i = mid; i >= 0; i--) bubbleDown(i);
+    
+    let result;
+    
+    // Remove from the top of the heap k times.
+    while(k--) {
+        swap(0, nums.length-1);  // Swap the root with the last element.
+        result = nums.pop();  // Pop the last element (the maximum value).
+        bubbleDown(0);  // Restore heap property by bubbling down from the root.
+    }
+    
+    // Function to bubble down an element at the given index.
+    function bubbleDown(idx) {
+        const leftChild = 2 * idx + 1;  // Calculate the index of the left child.
+        const rightChild = 2 * idx + 2;  // Calculate the index of the right child.
+        let max = idx;  // Initialize max index to the current index.
+        
+        // Compare with left child and update max if necessary.
+        if(leftChild < nums.length && nums[leftChild] > nums[max]) max = leftChild;
+        // Compare with right child and update max if necessary.
+        if(rightChild < nums.length && nums[rightChild] > nums[max]) max = rightChild;
+        
+        // If max has changed, swap elements and bubble down further.
+        if(max !== idx) {
+            swap(idx, max);  // Swap the elements at idx and max.
+            bubbleDown(max);  // Recursively bubble down at max.
+        }
+    }
+    
+    // Function to swap elements at indices i and j.
+    function swap(i, j) {
+        [nums[i], nums[j]] = [nums[j], nums[i]];  // Swap elements using destructuring assignment.
+    }
+    
+    return result;  // Return the kth largest element.
+};
