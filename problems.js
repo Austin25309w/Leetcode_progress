@@ -1363,3 +1363,19 @@ var exist = function(board, word) {
     }
     return false;  // If not found, return false.
 };
+
+// Kth smallest element in a BST
+
+var kthSmallest = function(root, k) {
+    let res 
+    let n = 0;
+    let inorder = (root) => {
+        if(!root) return
+        inorder(root.left)
+        if(n++ < k) res = root.val
+        inorder(root.right)
+    }
+    inorder(root)
+
+    return res
+};
