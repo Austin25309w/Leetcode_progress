@@ -1395,13 +1395,21 @@ var climbStairs = function(n, memo = {}) {
 
 // climbing stairs without memo
 
-let seen = {}
-var climbStairs = function(n, memo = {}) {
-    if(n < 3){
-        return n
+var climbStairs = function(n) {
+    if (n <= 2) {
+        return n;
     }
-    if(!(n in seen)){
-        seen[n] = climbStairs(n-1) + climbStairs(n-2)
+    
+    return climbStairs(n - 1) + climbStairs(n - 2);
+};
+
+// fibonocci with memorization
+
+var fib = function(n, memo = {}) {
+    if(n in memo){
+        return memo[n]
     }
-    return seen[n]
-};  
+    if(n <= 1) return n
+    memo[n] = fib(n-1, memo) + fib(n-2, memo)
+    return memo[n]
+};
