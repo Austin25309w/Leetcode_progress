@@ -1392,3 +1392,16 @@ var climbStairs = function(n, memo = {}) {
     memo[n] = climbStairs(n-1, memo) + climbStairs(n-2,memo)
     return memo[n]
 };  
+
+// climbing stairs without memo
+
+let seen = {}
+var climbStairs = function(n, memo = {}) {
+    if(n < 3){
+        return n
+    }
+    if(!(n in seen)){
+        seen[n] = climbStairs(n-1) + climbStairs(n-2)
+    }
+    return seen[n]
+};  
