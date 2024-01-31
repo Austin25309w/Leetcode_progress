@@ -1413,3 +1413,27 @@ var fib = function(n, memo = {}) {
     memo[n] = fib(n-1, memo) + fib(n-2, memo)
     return memo[n]
 };
+
+// contain duplicate II
+
+var containsNearbyDuplicate = function(nums, k) {
+    const set = new Set();
+    
+    // Initialize the sliding window of size k
+    for (let i = 0; i < nums.length; i++) {
+        // If the size of the set exceeds k, remove the leftmost element
+        if (i > k) {
+            set.delete(nums[i - k - 1]);
+        }
+        
+        // Check if the current element is already in the set
+        if (set.has(nums[i])) {
+            return true;
+        }
+        
+        // Add the current element to the set
+        set.add(nums[i]);
+    }
+    
+    return false;
+};
