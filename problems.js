@@ -1474,3 +1474,37 @@ var numOfSubarrays = function(arr, k, threshold) {
     }
     return count;
 };
+
+// minimum size subarray sum
+
+var minSubArrayLen = function(target, nums) {
+    // Initialize the minimum length to Infinity
+    let minLength = Infinity;
+    
+    // Initialize the sum of elements in the current subarray to 0
+    let sum = 0;
+    
+    // Initialize the left pointer of the current subarray to 0
+    let left = 0;
+    
+    // Loop through the array to find subarrays that sum up to at least the target
+    for (let i = 0; i < nums.length; i++) {
+        // Add the current element to the sum
+        sum += nums[i];
+
+        // Check if the sum of the current subarray is greater than or equal to the target
+        while (sum >= target) {
+            // Update the minimum length by taking the minimum between the current minimum length
+            // and the length of the current subarray (i - left + 1)
+            minLength = Math.min(minLength, i - left + 1);
+            
+            // Move the left pointer to the right to shrink the subarray
+            sum -= nums[left];
+            left++;
+        }
+    }
+    
+    // If minLength is still Infinity, it means no subarray was found, so return 0
+    // Otherwise, return the minimum length
+    return minLength === Infinity ? 0 : minLength;
+};
