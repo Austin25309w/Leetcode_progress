@@ -1437,3 +1437,40 @@ var containsNearbyDuplicate = function(nums, k) {
     
     return false;
 };
+
+
+// number of sub-arrays of size k and average greater than or equal to threshold
+var numOfSubarrays = function(arr, k, threshold) {
+    // If the array length is less than k, there are no subarrays of length k
+    if (arr.length < k) {
+        return 0;
+    }
+
+    // Initialize an array to store the average sum of each subarray
+    let subarrayAverages = [];
+    let maxSum = 0;
+
+    // Calculate the sum of the first k elements to start
+    for (let i = 0; i < k; i++) {
+        maxSum += arr[i];
+    }
+    // Calculate the average of the first subarray and push it into the array
+    subarrayAverages.push(maxSum / k);
+
+    // Calculate the sum of subsequent subarrays by sliding the window
+    for (let i = k; i < arr.length; i++) {
+        // Subtract the element going out of the window and add the new element
+        maxSum = maxSum - arr[i - k] + arr[i];
+        // Calculate the average of the current subarray and push it into the array
+        subarrayAverages.push(maxSum / k);
+    }
+
+    // Count the number of subarrays with average sum greater than or equal to the threshold
+    let count = 0;
+    for (let i = 0; i < subarrayAverages.length; i++) {
+        if (subarrayAverages[i] >= threshold) {
+            count++;
+        }
+    }
+    return count;
+};
