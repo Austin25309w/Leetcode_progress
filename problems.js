@@ -1508,3 +1508,46 @@ var minSubArrayLen = function(target, nums) {
     // Otherwise, return the minimum length
     return minLength === Infinity ? 0 : minLength;
 };
+
+// 76. Find cheapest flight price
+
+var findCheapestPrice = function(n, flights, src, dst, k) {
+    // Create a map to store the destinations and corresponding flights
+    let map = {};
+
+    // Populate the map with flights
+    for (let [x, y, z] of flights) {
+        if (!map[y]) map[y] = [];
+        map[y].push([x, y, z]);
+    }
+
+    // Initialize the minimum cost variable
+    let min = Infinity;
+
+    // Define a recursive function to iterate over flights
+    let iterate = (end, sum, count) => {
+        // If count exceeds k or sum is greater than min, return
+        if (count > k || sum > min) return;
+
+        // If end is equal to source, update min with the minimum sum
+        if (end == src) {
+            min = Math.min(min, sum);
+            return;
+        }
+
+        // If there are no flights from end, return
+        if (!map[end]) return;
+
+        // Iterate over flights from end
+        for (let [x, y, z] of map[end]) {
+            // Recursive call to iterate with updated parameters
+            iterate(x, sum + z, count + 1);
+        }
+    };
+
+    // Start the recursive iteration from destination with initial sum 0 and count -1
+    iterate(dst, 0, -1);
+
+    // If min is still Infinity, return -1, otherwise return min
+    return min == Infinity ? -1 : min;
+};
