@@ -1551,3 +1551,33 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
     // If min is still Infinity, return -1, otherwise return min
     return min == Infinity ? -1 : min;
 };
+
+// minimum size subarray sum
+
+var minSubArrayLen = function(target, nums) {
+    let minLength = Infinity;
+
+    let sum = 0;
+    let left = 0;
+
+    for(let right =0; right < nums.length; right++){
+        sum += nums[right]
+        while(sum >= target){
+            minLength = Math.min(minLength, right - left +1);
+            sum -= nums[left]
+            left++
+        }
+    }
+    return minLength == Infinity ? 0 : minLength
+};
+
+/*
+2/3/2024
+// minLength = Math.min(minLength, right - left +1);
+// right - left: This expression calculates the number of elements between the left and right pointers, inclusively. 
+// Since array indices are 0-based, right - left gives the count of elements between right and left, both inclusive.
+
+// right - left + 1: Adding 1 to right - left accounts for the fact that 
+// we need to include the element at the right pointer as well. So, right - left + 1 gives the length of the current subarray.
+
+*/
