@@ -1594,3 +1594,13 @@ def rec(state):
   store answer for later use (memoize)
   return ans
   */
+
+  // power of 3 
+
+  var isPowerOfThree = function(n) {
+    if(n === 0) return false;
+    if(n === 1) return true;
+
+    if(!(n%3)) return isPowerOfThree(n /3)
+    return false
+};
