@@ -1581,3 +1581,16 @@ var minSubArrayLen = function(target, nums) {
 // we need to include the element at the right pointer as well. So, right - left + 1 gives the length of the current subarray.
 
 */
+
+/*
+2/4/2024
+Write a template for memoizing a function
+
+define cache
+def rec(state):
+  if problem has been solved for this state
+    return the solution
+  ans = rec(new state) (perhaps multiple rec calls)
+  store answer for later use (memoize)
+  return ans
+  */
