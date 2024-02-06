@@ -1604,3 +1604,62 @@ def rec(state):
     if(!(n%3)) return isPowerOfThree(n /3)
     return false
 };
+
+// serialized and deserialized binary tree
+
+var serialize = function(root) {
+    // Initialize an empty array to store the serialized tree nodes
+    let res = [];
+    
+    // Define a depth-first search function to traverse the tree
+    function dfs(node) {
+        // If the current node is null, add 'null' to the result array
+        if (!node) {
+            res.push('null');
+        } else {
+            // Otherwise, add the node's value to the result array
+            res.push(node.val.toString());
+            // Recursively traverse the left and right subtrees
+            dfs(node.left);
+            dfs(node.right);
+        }
+    }
+    
+    // Start DFS traversal from the root node
+    dfs(root);
+    
+    // Convert the result array to a string by joining its elements with commas
+    return res.join(',');
+};
+
+/**
+ * Decodes your encoded data to tree.
+ *
+ * @param {string} data
+ * @return {TreeNode}
+ */
+var deserialize = function(data) {
+    // Split the serialized data string by commas to get an array of node values
+    const arr = data.split(',');
+    let i = 0;
+
+    // Define a recursive function to build the tree from the serialized data
+    function dfs() {
+        // If the current node value is 'null', return null
+        if (arr[i] === 'null') {
+            i++; // Move to the next element in the array
+            return null;
+        } else {
+            // Otherwise, create a new TreeNode with the current node value
+            const node = new TreeNode(Number(arr[i]));
+            i++; // Move to the next element in the array
+            // Recursively build the left and right subtrees
+            node.left = dfs();
+            node.right = dfs();
+            return node;
+        }
+    }
+    
+    // Start building the tree from the root node and return the root
+    return dfs();
+};
