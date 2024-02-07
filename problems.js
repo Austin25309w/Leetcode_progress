@@ -1678,3 +1678,25 @@ var inorderTraversal = function(root) {
     return res;
 };
 
+// Count complete tree nodes
+
+var countNodes = function(root) {
+    let counter = 0;
+
+    function dfs(node) {
+        if (!node) return; // If node is null, return without processing
+        
+        counter += 1; // Increment the counter when visiting a node
+        
+        // Recursively traverse the left subtree
+        dfs(node.left);
+        
+        // Recursively traverse the right subtree
+        dfs(node.right);
+    }
+
+    dfs(root); // Start DFS traversal from the root node
+
+    return counter;
+};
+
