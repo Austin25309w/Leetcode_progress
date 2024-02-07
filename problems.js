@@ -1663,3 +1663,18 @@ var deserialize = function(data) {
     // Start building the tree from the root node and return the root
     return dfs();
 };
+
+// in order travasal
+
+var inorderTraversal = function(root) {
+    let res = [];
+    function dfs(node){
+        if(!node) return
+        dfs(node.left)
+        res.push(node.val)
+        dfs(node.right)
+    }
+    dfs(root)
+    return res;
+};
+
