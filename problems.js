@@ -1700,3 +1700,27 @@ var countNodes = function(root) {
     return counter;
 };
 
+
+// Sum of left leaves without children
+var sumOfLeftLeaves = function(root) {
+    let sum = 0;
+    
+    function dfs(node) {
+        if (!node) return;
+        
+        // Check if the current node's left child is a leaf node
+        if (node.left && !node.left.left && !node.left.right) {
+            sum += node.left.val; // Add the value of the left leaf node to the sum
+        }
+        
+        // Recursively traverse the left subtree
+        dfs(node.left);
+        
+        // Recursively traverse the right subtree
+        dfs(node.right);
+    }
+    
+    dfs(root); // Start DFS traversal from the root node
+    
+    return sum;
+};
