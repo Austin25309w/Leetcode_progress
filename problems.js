@@ -1724,3 +1724,27 @@ var sumOfLeftLeaves = function(root) {
     
     return sum;
 };
+
+// Substrings of size three with distinct characters
+
+var countGoodSubstrings = function (s) {
+    let unquieLength = 0; // Initialize a variable to count the number of good substrings
+  
+    // Iterate over the string starting from index 2
+    for (let i = 2; i < s.length; i++) {
+      // Check if the substring of length 3 starting at index i - 2 is unique
+  // starting at index i - 2 and ending at index i. The reason for i - 2 is to ensure that each substring considered is of length 3, as required by the problem statement
+      if (isUnique(s.substring(i - 2, i + 1))) {
+        unquieLength++; // Increment the count if the substring is unique
+      }
+    }
+  
+    // Function to check if a substring has more than 2 unique characters
+    function isUnique(str) {
+      const set = new Set([...str]); // Create a set from the characters in the substring
+      console.log(str, set); // Output the substring and the set of unique characters (for debugging)
+      return set.size > 2; // Return true if the set size is greater than 2 (indicating more than 2 unique characters)
+    }
+  
+    return unquieLength; // Return the count of good substrings
+  };
