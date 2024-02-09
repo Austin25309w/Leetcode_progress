@@ -1749,7 +1749,7 @@ var countGoodSubstrings = function (s) {
     return unquieLength; // Return the count of good substrings
   };
 
-  // Move zeros to the end:
+  // Move zeros to the end using swap method:
 
 var moveZeroes = function(nums) {
     let left = 0
@@ -1761,3 +1761,18 @@ var moveZeroes = function(nums) {
     }
     return nums;
 };
+
+// Move zeros to the end using remove and push method:
+
+var moveZeroes = function(nums) {
+    let idx = 0;
+    for(let i =0; i<nums.length; i++){
+      if(nums[idx] === 0){
+        nums.splice(idx, 1);
+        nums.push(0)
+      }else {
+          idx++
+      }
+    }
+    return nums;
+  };
