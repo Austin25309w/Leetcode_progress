@@ -1776,3 +1776,19 @@ var moveZeroes = function(nums) {
     }
     return nums;
   };
+
+  // 2/10/2024
+
+ /*
+    * initate black color counter
+    * initate recolor counter 
+    * initate min recolor compare 
+
+    * while traversing, check if it is black up to k length
+
+    check if black counter is equal to k 
+    return the check recolor counter 
+ */
+    var minimumRecolors = function(blocks, k) {
+    
+    };  
