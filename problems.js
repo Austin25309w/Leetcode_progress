@@ -1822,3 +1822,15 @@ var moveZeroes = function(nums) {
         }
         return min;
     };
+
+    // 2/12/2024
+    // understand blocks[start++] === 'W';
+    //Condition: blocks[start++] === 'W' checks if the block at the start index of the current window is equal to 'W'.
+
+    //Decrementing current: If the condition is true, meaning the block at the start of the window is 'W', 
+    //current is decremented by 1. This decrement signifies that as the window moves forward, the 'W' block at the start of the window is no longer part of the current window.
+
+   // Incrementing start: After evaluating the condition, start is incremented by 1 using the post-increment operator (start++). This increment shifts the window one position to the right, 
+   // preparing it for the next iteration.
+
+// In summary, this block ensures that when the window slides forward, the count of 'W' blocks (current) is updated correctly based on whether the block at the start of the window is 'W' or not.
