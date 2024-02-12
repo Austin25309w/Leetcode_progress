@@ -1792,3 +1792,33 @@ var moveZeroes = function(nums) {
     var minimumRecolors = function(blocks, k) {
     
     };  
+
+    // minimum recolor to get K consecutive black blocks
+
+    var minimumRecolors = function(blocks, k) {
+        // Initialize the minimum count of 'W' blocks needed to recolor
+        let min = k;
+        // Initialize the count of 'W' blocks in the current window
+        let current = 0;
+        // Initialize the start index of the current window
+        let start = 0;        
+    
+        // Iterate through the blocks array
+        for (let i = 0; i < blocks.length; i++) {
+            // If the current block is white ('W'), increment the count of 'W' blocks
+            if (blocks[i] === 'W') {
+                current++;
+            }
+            // If the window size is equal to k
+            if (i + 1 >= k) {
+                // Update the minimum count of 'W' blocks needed to recolor
+                min = Math.min(min, current);
+                // If the block at the start index of the window is white ('W'),
+                // decrement the count of 'W' blocks as it moves out of the window
+                if (blocks[start++] === 'W') {
+                    current--;
+                }
+            }
+        }
+        return min;
+    };
