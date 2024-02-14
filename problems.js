@@ -1862,3 +1862,15 @@ var findMaxAverage = function(nums, k) {
     // Calculate the maximum average by dividing maxSum by k
     return maxSum / k;
 };
+
+// 2/14/2024
+// learnt about sum has to remove nums left most index if the window exceeded k 
+if(right - left +1 > k){
+    sum -= nums[left]
+    left++
+}
+
+if(right - left +1 === k){
+    max = Math.max(max, sum)
+}
+// practice more, that's how you solve. 
