@@ -1834,3 +1834,31 @@ var moveZeroes = function(nums) {
    // preparing it for the next iteration.
 
 // In summary, this block ensures that when the window slides forward, the count of 'W' blocks (current) is updated correctly based on whether the block at the start of the window is 'W' or not.
+
+
+// 2/13/2024
+//find max average subarray I
+
+var findMaxAverage = function(nums, k) {
+    let sum = 0;
+    let maxSum = -Infinity; // Initialize maxSum with negative infinity to ensure it's updated in the loop
+    let left = 0;
+    
+    for (let right = 0; right < nums.length; right++) {
+        sum += nums[right]; // Add the current number to the sum
+        
+        // If the window size is greater than k, remove the leftmost element from the sum
+        if (right - left + 1 > k) {
+            sum -= nums[left];
+            left++; // Move the left pointer to the right
+        }
+        
+        // If the window size is exactly k, update the maxSum if the current sum is greater
+        if (right - left + 1 === k) {
+            maxSum = Math.max(maxSum, sum);
+        }
+    }
+    
+    // Calculate the maximum average by dividing maxSum by k
+    return maxSum / k;
+};
