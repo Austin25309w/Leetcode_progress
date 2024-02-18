@@ -1911,3 +1911,24 @@ var maxProfit = function(prices) {
     }
     return max
 };
+
+// house robber
+
+var rob = function(nums, idx = 0, memo = {}) {
+
+    // If the current index 'idx' is already memoized, return its value from 'memo'.
+    if (idx in memo) return memo[idx];
+
+    // If the current index 'idx' is beyond the array length, return 0 (base case).
+    if (idx >= nums.length) return 0;
+
+    // Calculate the maximum amount that can be robbed if the current house is included.
+    let include = nums[idx] + rob(nums, idx + 2, memo);
+
+    // Calculate the maximum amount that can be robbed if the current house is excluded.
+    let exclude = rob(nums, idx + 1, memo);
+
+    // Store the maximum of the two options in 'memo' at index 'idx' for memoization.
+    // Then, return this maximum value.
+    return memo[idx] = Math.max(include, exclude);
+};
