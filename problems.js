@@ -1932,3 +1932,6 @@ var rob = function(nums, idx = 0, memo = {}) {
     // Then, return this maximum value.
     return memo[idx] = Math.max(include, exclude);
 };
+
+// 2/18/2024
+// create a next.js project here
