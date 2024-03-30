@@ -1965,3 +1965,26 @@ var twoSum = function(nums, target) {
     }
     return null
 };
+
+// minimum time to repair cars
+var repairCars = function(ranks, cars) {
+    ranks.sort((a,b) => a-b);
+    let lo = 0;
+    let high = cars * cars * ranks[0];
+    let minTime;
+    let total = 0;
+
+    while(lo < high){
+        minTime = Math.floor((lo + high) /2);
+        total = 0;
+        for(let i =0; i<ranks.length; i++){
+            total += Math.floor(Math.sqrt(Math.floor(minTime/ranks[i])));
+        }
+        if(total >= cars){
+            high = minTime;
+        } else {
+            lo = minTime+1;
+        }
+    }
+    return lo;
+};
